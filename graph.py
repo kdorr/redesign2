@@ -15,7 +15,7 @@ df = pandas.read_csv("data.csv")
 df['radius'] = (df['Per Source'])/pi
 print(df)
 print(df['radius'])
-for i in range(0,5):
+for i in range(0,6):
     df.loc[i, 'radius'] = sqrt(df.loc[i, 'radius'])*50000000
 df['Circle Bottom'] = df['radius'] + df['Total Killed']
 df['width'] = df['Total Killed']/df['Per Source']
@@ -24,7 +24,7 @@ df['width'] = df['Total Killed']/df['Per Source']
 print(df['radius'])
 
 df['label'] = "Total Killed "
-for i in range(0,5):
+for i in range(0,6):
     df.loc[i, 'label'] = "Total Killed: " + str(df.loc[i, 'Total Killed'])
 print(df)
 
@@ -33,7 +33,7 @@ src = ColumnDataSource(df)
 
 # Setup plot
 plot = figure(
-    plot_width=1200, plot_height=600, title="Number of Birds Killed by each Human Activity",
+    plot_width=900, plot_height=600, title="Number of Birds Killed by each Human Activity",
     x_axis_label="Type of Activity", y_axis_label="Number of Birds Killed",
     x_range=[row[0] for row in df.values], y_range=Range1d(0, 2800000000)
 )
@@ -54,5 +54,7 @@ plot.vbar(x='Source', bottom=0, top='Total Killed', width=.01, source=src, color
 #cats = LabelSet(x='Source', y='Total Killed', text='label', source=src)
 #plot.add_layout(cats)
 #plot.add_layout(labels)
+
+#data_table = DataTable(source=src, columns=)
 
 show(plot)
